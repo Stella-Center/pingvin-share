@@ -17,6 +17,8 @@ import shareService from "../../services/share.service";
 import { FileUpload } from "../../types/File.type";
 import { CreateShare, Share } from "../../types/share.type";
 import toast from "../../utils/toast.util";
+import mixpanel from "mixpanel-browser";
+import {initMixPanel} from "../../utils/mixpane.util";
 
 const promiseLimit = pLimit(3);
 let errorToastShown = false;
@@ -122,6 +124,11 @@ const Upload = ({
 
   const showCreateUploadModalCallback = (files: FileUpload[]) => {
     setFiles(files);
+
+      mixpanel.track('Button Clicked', {
+          buttonName: 'share.upload.files'
+      });
+
     showCreateUploadModal(
       modals,
       {
@@ -177,6 +184,12 @@ const Upload = ({
         .catch(() => toast.error(t("upload.notify.generic-error")));
     }
   }, [files]);
+
+    useEffect(() => {
+        //init mixPanel for event tracking for this page
+        initMixPanel();
+    }, []);
+
 
   return (
     <>
