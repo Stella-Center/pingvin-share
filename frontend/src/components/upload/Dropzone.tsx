@@ -1,22 +1,30 @@
 import { Button, Center, createStyles, Group, Text } from "@mantine/core";
 import { Dropzone as MantineDropzone } from "@mantine/dropzone";
 import { ForwardedRef, useRef } from "react";
-import { TbCloudUpload, TbUpload } from "react-icons/tb";
+import {  TbUpload } from "react-icons/tb";
 import { FormattedMessage } from "react-intl";
 import useTranslate from "../../hooks/useTranslate.hook";
 import { FileUpload } from "../../types/File.type";
 import { byteToHumanSizeString } from "../../utils/fileSize.util";
 import toast from "../../utils/toast.util";
+import {UploadIcon} from "./UploadIcon";
 
 const useStyles = createStyles((theme) => ({
   wrapper: {
+    margin:" 0 auto",
+    maxWidth:"600px",
     position: "relative",
     marginBottom: 30,
   },
 
   dropzone: {
-    borderWidth: 1,
-    paddingBottom: 50,
+    backgroundColor:"#F3F3F3",
+    padding:"60px 40px 40px 40px",
+    color:'#000000',
+    border:"none",
+    '&:hover': {
+      backgroundColor: "rgba(44, 46, 51, 0.1)"
+    },
   },
 
   icon: {
@@ -27,8 +35,10 @@ const useStyles = createStyles((theme) => ({
   },
 
   control: {
-    position: "absolute",
-    bottom: -20,
+    backgroundColor:'#2D6AB5 !important',
+    padding:"10px 40px",
+    color:"fff",
+    marginTop:"35px"
   },
 }));
 
@@ -77,31 +87,31 @@ const Dropzone = ({
       >
         <div style={{ pointerEvents: "none" }}>
           <Group position="center">
-            <TbCloudUpload size={50} />
+          <UploadIcon/>
           </Group>
-          <Text align="center" weight={700} size="lg" mt="xl">
+          <Text align="center" weight={700} size="35px" mt="xl">
             {title || <FormattedMessage id="upload.dropzone.title" />}
           </Text>
-          <Text align="center" size="sm" mt="xs" color="dimmed">
+          <Text align="center" size="md" mt="md">
             <FormattedMessage
               id="upload.dropzone.description"
               values={{ maxSize: byteToHumanSizeString(maxShareSize) }}
             />
           </Text>
         </div>
+        <Center>
+          <Button
+              className={classes.control}
+              variant="filled"
+              size="sm"
+              radius="xl"
+              disabled={isUploading}
+              onClick={() => openRef.current && openRef.current()}
+          >
+            {<TbUpload />}
+          </Button>
+        </Center>
       </MantineDropzone>
-      <Center>
-        <Button
-          className={classes.control}
-          variant="light"
-          size="sm"
-          radius="xl"
-          disabled={isUploading}
-          onClick={() => openRef.current && openRef.current()}
-        >
-          {<TbUpload />}
-        </Button>
-      </Center>
     </div>
   );
 };

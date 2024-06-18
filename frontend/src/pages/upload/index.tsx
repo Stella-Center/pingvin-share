@@ -1,4 +1,4 @@
-import { Button, Group } from "@mantine/core";
+import {Button, createStyles, Group} from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import { cleanNotifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
@@ -22,6 +22,18 @@ const promiseLimit = pLimit(3);
 let errorToastShown = false;
 let createdShare: Share;
 
+
+const useStyles = createStyles((theme) => ({
+    control: {
+        backgroundColor:'#FFFFFF !important',
+        padding:"10px 30px",
+        color:"#9E9E9E",
+        marginTop:"35px",
+        border:'1px solid #9E9E9E',
+        cursor:"pointer"
+    },
+}));
+
 const Upload = ({
   maxShareSize,
   isReverseShare = false,
@@ -29,6 +41,7 @@ const Upload = ({
   maxShareSize?: number;
   isReverseShare: boolean;
 }) => {
+    const { classes } = useStyles();
   const modals = useModals();
   const t = useTranslate();
 
@@ -186,6 +199,10 @@ const Upload = ({
           loading={isUploading}
           disabled={files.length <= 0}
           onClick={() => showCreateUploadModalCallback(files)}
+          className={classes.control}
+          variant="filled"
+          size="md"
+          radius="xl"
         >
           <FormattedMessage id="common.button.share" />
         </Button>

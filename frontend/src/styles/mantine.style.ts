@@ -22,6 +22,14 @@ export default <MantineThemeOverride>{
         title: {
           fontSize: theme.fontSizes.lg,
           fontWeight: 700,
+          backgroundColor: "#F3F3F3",
+        },
+      }),
+    },
+    Dropdown: {
+      styles: (theme) => ({
+        title: {
+          backgroundColor: "#F3F3F3",
         },
       }),
     },

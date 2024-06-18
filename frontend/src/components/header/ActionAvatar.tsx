@@ -1,22 +1,41 @@
-import { ActionIcon, Avatar, Menu } from "@mantine/core";
+import { ActionIcon, Avatar, createStyles, Menu } from "@mantine/core";
 import Link from "next/link";
 import { TbDoorExit, TbSettings, TbUser } from "react-icons/tb";
 import useUser from "../../hooks/user.hook";
 import authService from "../../services/auth.service";
 import { FormattedMessage, useIntl } from "react-intl";
 
+const useStyles = createStyles((theme) => ({
+  dropdown: {
+    backgroundColor: "#F3F3F3",
+    color: "#000",
+  },
+  item: {
+    color: "#000000", // Чорний колір тексту
+  },
+}));
 const ActionAvatar = () => {
   const { user } = useUser();
+  const { classes } = useStyles();
 
   return (
-    <Menu position="bottom-start" withinPortal>
+    <Menu
+      position="bottom-start"
+      withinPortal
+      classNames={{ dropdown: classes.dropdown }}
+    >
       <Menu.Target>
         <ActionIcon>
           <Avatar size={28} />
         </ActionIcon>
       </Menu.Target>
       <Menu.Dropdown>
-        <Menu.Item component={Link} href="/account" icon={<TbUser size={14} />}>
+        <Menu.Item
+          component={Link}
+          href="/account"
+          icon={<TbUser size={14} />}
+          className={classes.item}
+        >
           <FormattedMessage id="navbar.avatar.account" />
         </Menu.Item>
         {user!.isAdmin && (
@@ -24,6 +43,7 @@ const ActionAvatar = () => {
             component={Link}
             href="/admin"
             icon={<TbSettings size={14} />}
+            className={classes.item}
           >
             <FormattedMessage id="navbar.avatar.admin" />
           </Menu.Item>
@@ -34,6 +54,7 @@ const ActionAvatar = () => {
             await authService.signOut();
           }}
           icon={<TbDoorExit size={14} />}
+          className={classes.item}
         >
           <FormattedMessage id="navbar.avatar.signout" />
         </Menu.Item>
