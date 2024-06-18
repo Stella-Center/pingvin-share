@@ -1,4 +1,4 @@
-import { Button, Group } from "@mantine/core";
+import { Button, createStyles, Group } from "@mantine/core";
 import { useModals } from "@mantine/modals";
 import { cleanNotifications } from "@mantine/notifications";
 import { AxiosError } from "axios";
@@ -17,10 +17,23 @@ import shareService from "../../services/share.service";
 import { FileUpload } from "../../types/File.type";
 import { CreateShare, Share } from "../../types/share.type";
 import toast from "../../utils/toast.util";
+import mixpanel from "mixpanel-browser";
+import { initMixPanel } from "../../utils/mixpanel.util";
 
 const promiseLimit = pLimit(3);
 let errorToastShown = false;
 let createdShare: Share;
+
+const useStyles = createStyles((theme) => ({
+  control: {
+    backgroundColor: "#FFFFFF !important",
+    padding: "10px 30px",
+    color: "#9E9E9E",
+    marginTop: "35px",
+    border: "1px solid #9E9E9E",
+    cursor: "pointer",
+  },
+}));
 
 const Upload = ({
   maxShareSize,
@@ -29,6 +42,7 @@ const Upload = ({
   maxShareSize?: number;
   isReverseShare: boolean;
 }) => {
+  const { classes } = useStyles();
   const modals = useModals();
   const t = useTranslate();
 
@@ -36,6 +50,11 @@ const Upload = ({
   const config = useConfig();
   const [files, setFiles] = useState<FileUpload[]>([]);
   const [isUploading, setisUploading] = useState(false);
+
+  useEffect(() => {
+    //init mixPanel for event tracking for this page
+    initMixPanel();
+  }, []);
 
   const chunkSize = useRef(parseInt(config.get("share.chunkSize")));
 
@@ -122,6 +141,15 @@ const Upload = ({
 
   const showCreateUploadModalCallback = (files: FileUpload[]) => {
     setFiles(files);
+
+    try {
+      mixpanel.track("Button Clicked", {
+        buttonName: "share.upload.files",
+      });
+    } catch (err) {
+      console.error(err);
+    }
+
     showCreateUploadModal(
       modals,
       {
@@ -186,6 +214,10 @@ const Upload = ({
           loading={isUploading}
           disabled={files.length <= 0}
           onClick={() => showCreateUploadModalCallback(files)}
+          className={classes.control}
+          variant="filled"
+          size="md"
+          radius="xl"
         >
           <FormattedMessage id="common.button.share" />
         </Button>
