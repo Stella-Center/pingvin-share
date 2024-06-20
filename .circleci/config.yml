@@ -48,20 +48,6 @@ workflows:
             branches:
               only:
                 - main
-      - aws-ecr/build-and-push-image:
-          name: ecr-build-push-develop
-          account-url: AWS_ECR_ACCOUNT_URL
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          dockerfile: Dockerfile
-          region: AWS_DEFAULT_REGION
-          repo: portal-dev-pingvin
-          skip-when-tags-exist: true
-          tag: 'latest,$CIRCLE_SHA1'
-          filters:
-            branches:
-              only:
-                - develop
       - aws-ecs/deploy-service-update:
           cluster: 'stella-dev'
           container-image-name-updates: 'container=pingvin,tag=${CIRCLE_SHA1}'
