@@ -48,16 +48,16 @@ workflows:
             branches:
               only:
                 - main
-      - aws-ecs/deploy-service-update:
-          cluster: 'stella-dev'
-          container-image-name-updates: 'container=pingvin,tag=${CIRCLE_SHA1}'
-          family: 'auth-dev-wings'
-          service-name: 'pingvin'
-          force-new-deployment: true
-          task-definition-tags: "key=commit,value=${CIRCLE_SHA1}"
-          requires:
-            - ecr-build-push-develop
-          filters:
-            branches:
-              only:
-                - develop
+      # - aws-ecs/deploy-service-update:
+      #     cluster: 'stella-dev'
+      #     container-image-name-updates: 'container=pingvin,tag=${CIRCLE_SHA1}'
+      #     family: 'auth-dev-wings'
+      #     service-name: 'pingvin'
+      #     force-new-deployment: true
+      #     task-definition-tags: "key=commit,value=${CIRCLE_SHA1}"
+      #     requires:
+      #       - ecr-build-push-develop
+      #     filters:
+      #       branches:
+      #         only:
+      #           - develop
