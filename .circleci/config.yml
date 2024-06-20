@@ -22,7 +22,7 @@ workflows:
               only:
                 - main
       - aws-ecr/build-and-push-image:
-          name: ecr-build-push
+          name: ecr-build-push-dev
           account-url: AWS_ECR_ACCOUNT_URL_DEV
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
