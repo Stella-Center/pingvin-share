@@ -12,7 +12,7 @@ const configVariables: ConfigVariables = {
   general: {
     appName: {
       type: "string",
-      defaultValue: "Pingvin Share",
+      defaultValue: "Stella Share",
       secret: false,
     },
     appUrl: {

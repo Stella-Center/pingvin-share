@@ -4,17 +4,19 @@ const GlobalStyle = () => {
   return (
     <Global
       styles={(theme) => ({
+          body:{
+              background:"linear-gradient(352.6deg, #ACBBC1 -45.21%, #F3F3F3 101.92%)",
+              minHeight:'100vh'
+          },
         a: {
           color: "inherit",
           textDecoration: "none",
         },
         "table.md, table.md th:nth-of-type(odd), table.md td:nth-of-type(odd)":
           {
-            background:
-              theme.colorScheme == "dark"
-                ? "rgba(50, 50, 50, 0.5)"
-                : "rgba(220, 220, 220, 0.5)",
-          },
+            background:"linear-gradient(352.6deg, #ACBBC1 -45.21%, #F3F3F3 101.92%)",
+
+      },
         "table.md td": {
           paddingLeft: "0.5em",
           paddingRight: "0.5em",

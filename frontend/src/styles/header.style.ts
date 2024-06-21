@@ -16,7 +16,6 @@ export default createStyles((theme) => ({
     borderTopLeftRadius: 0,
     borderTopWidth: 0,
     overflow: "hidden",
-
     [theme.fn.largerThan("sm")]: {
       display: "none",
     },

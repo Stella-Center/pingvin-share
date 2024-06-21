@@ -1,6 +1,7 @@
 import {
   Box,
   Burger,
+  Button,
   Container,
   createStyles,
   Group,
@@ -20,6 +21,7 @@ import useTranslate from "../../hooks/useTranslate.hook";
 import Logo from "../Logo";
 import ActionAvatar from "./ActionAvatar";
 import NavbarShareMenu from "./NavbarShareMenu";
+import { TbUpload } from "react-icons/tb";
 
 const HEADER_HEIGHT = 60;
 
@@ -34,6 +36,22 @@ const useStyles = createStyles((theme) => ({
   root: {
     position: "relative",
     zIndex: 1,
+    backgroundColor: "#F3F3F3",
+    boxShadow: "0px 4px 7.1px 0px #0000001A",
+    border: "none",
+    svg: {
+      color: "#9E9E9E",
+    },
+  },
+  control: {
+    padding: "10px 30px",
+    backgroundColor: "#2D6AB5 !important",
+    height: "33px",
+    border: "1px solid #9E9E9E",
+    cursor: "pointer",
+  },
+  logoText: {
+    lineHeight: "10px",
   },
 
   dropdown: {
@@ -46,6 +64,7 @@ const useStyles = createStyles((theme) => ({
     borderTopLeftRadius: 0,
     borderTopWidth: 0,
     overflow: "hidden",
+    backgroundColor: "#F3F3F3",
 
     [theme.fn.largerThan("sm")]: {
       display: "none",
@@ -66,6 +85,7 @@ const useStyles = createStyles((theme) => ({
   },
 
   burger: {
+    backgroundColor: "#2D6AB5",
     [theme.fn.largerThan("sm")]: {
       display: "none",
     },
@@ -77,10 +97,7 @@ const useStyles = createStyles((theme) => ({
     padding: "8px 12px",
     borderRadius: theme.radius.sm,
     textDecoration: "none",
-    color:
-      theme.colorScheme === "dark"
-        ? theme.colors.dark[0]
-        : theme.colors.gray[7],
+    color: "#9E9E9E",
     fontSize: theme.fontSizes.sm,
     fontWeight: 500,
 
@@ -113,6 +130,7 @@ const Header = () => {
   const { user } = useUser();
   const router = useRouter();
   const config = useConfig();
+  const { classes, cx } = useStyles();
   const t = useTranslate();
 
   const [opened, toggleOpened] = useDisclosure(false);
@@ -125,8 +143,19 @@ const Header = () => {
 
   const authenticatedLinks: NavLink[] = [
     {
-      link: "/upload",
       label: t("navbar.upload"),
+      component: (
+        <Link href={"/upload"}>
+          <Button
+            className={classes.control}
+            variant="filled"
+            size="sm"
+            radius="xl"
+          >
+            {t("navbar.upload")}
+          </Button>
+        </Link>
+      ),
     },
     {
       component: <NavbarShareMenu />,
@@ -162,7 +191,6 @@ const Header = () => {
       label: t("navbar.signup"),
     });
 
-  const { classes, cx } = useStyles();
   const items = (
     <>
       {(user ? authenticatedLinks : unauthenticatedLinks).map((link, i) => {
@@ -192,9 +220,11 @@ const Header = () => {
     <MantineHeader height={HEADER_HEIGHT} mb={40} className={classes.root}>
       <Container className={classes.header}>
         <Link href="/" passHref>
-          <Group>
-            <Logo height={35} width={35} />
-            <Text weight={600}>{config.get("general.appName")}</Text>
+          <Group align={"flex-end"} spacing={8}>
+            <Logo height={"27px"} width={"100px"} />
+            <Text weight={500} color={"#000000"} className={classes.logoText}>
+              Share
+            </Text>
           </Group>
         </Link>
         <Group spacing={5} className={classes.links}>
@@ -208,8 +238,14 @@ const Header = () => {
         />
         <Transition transition="pop-top-right" duration={200} mounted={opened}>
           {(styles) => (
-            <Paper className={classes.dropdown} withBorder style={styles}>
-              <Stack spacing={0}> {items}</Stack>
+            <Paper
+              className={classes.dropdown}
+              withBorder
+              style={{ ...styles, backgroundColor: "#F3F3F3" }}
+            >
+              <Stack style={{ backgroundColor: "#F3F3F3" }} spacing={0}>
+                {items}
+              </Stack>
             </Paper>
           )}
         </Transition>
