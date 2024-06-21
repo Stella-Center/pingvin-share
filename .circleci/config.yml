@@ -52,7 +52,7 @@ workflows:
           cluster: 'stella-dev'
           container-image-name-updates: 'container=pingvin,tag=${CIRCLE_SHA1}'
           family: 'portal-dev-wings'
-          service-name: 'pingvin'
+          service-name: 'wings'
           force-new-deployment: true
           task-definition-tags: "key=commit,value=${CIRCLE_SHA1}"
           requires:
