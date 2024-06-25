@@ -22,7 +22,6 @@ export default <MantineThemeOverride>{
         title: {
           fontSize: theme.fontSizes.lg,
           fontWeight: 700,
-          backgroundColor: "#F3F3F3",
         },
       }),
     },
@@ -30,6 +29,20 @@ export default <MantineThemeOverride>{
       styles: (theme) => ({
         title: {
           backgroundColor: "#F3F3F3",
+        },
+      }),
+    },
+    Table: {
+      styles: (theme) => ({
+        root: {
+          color: "#000 !important",
+          borderColor: "#000 !important",
+          th: {
+            color: "#000 !important",
+          },
+          td: {
+            color: "#000 !important",
+          },
         },
       }),
     },
