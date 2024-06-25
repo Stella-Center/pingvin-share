@@ -28,7 +28,7 @@
     ],
     "environment": [
         {
-            "name": "MIXPANEL_KEY",
+            "name": "NEXT_PUBLIC_MIXPANEL_KEY",
             "value": "${mixpanel_token}"
         },
         {
