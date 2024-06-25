@@ -1,5 +1,5 @@
 /** @type {import('next').NextConfig} */
-const { version } = require('./package.json');
+const { version } = require("./package.json");
 
 const withPWA = require("next-pwa")({
   dest: "public",
@@ -8,17 +8,17 @@ const withPWA = require("next-pwa")({
   runtimeCaching: [
     {
       urlPattern: /^https?.*/,
-      handler: 'NetworkOnly',
+      handler: "NetworkOnly",
     },
   ],
-  reloadOnOnline: false,
 });
 
 module.exports = withPWA({
-  output: "standalone", env: {
+  output: "standalone",
+  env: {
     VERSION: version,
   },
   serverRuntimeConfig: {
-    apiURL: process.env.API_URL ?? 'http://localhost:8080',
+    apiURL: process.env.API_URL ?? "http://localhost:8080",
   },
 });

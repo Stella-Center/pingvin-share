@@ -121,6 +121,7 @@ const FileList = ({
                             showFilePreviewModal(share.id, file, modals)
                           }
                           size={25}
+                          sx={{ color: "#000" }}
                         >
                           <TbEye />
                         </ActionIcon>
@@ -129,6 +130,7 @@ const FileList = ({
                         <ActionIcon
                           size={25}
                           onClick={() => copyFileLink(file)}
+                          sx={{ color: "#000" }}
                         >
                           <TbLink />
                         </ActionIcon>
@@ -138,6 +140,7 @@ const FileList = ({
                         onClick={async () => {
                           await shareService.downloadFile(share.id, file.id);
                         }}
+                        sx={{ color: "#000" }}
                       >
                         <TbDownload />
                       </ActionIcon>
