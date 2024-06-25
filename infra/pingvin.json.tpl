@@ -26,13 +26,11 @@
             "containerPath": "/tmp/data"
         }
     ],
-    "secrets": [
-        {
-            "valueFrom": "${mixpanel_token_arn}",
-            "name": "MIXPANEL_KEY"
-        }
-    ],
     "environment": [
+        {
+            "name": "MIXPANEL_KEY",
+            "value": "${mixpanel_token}"
+        },
         {
             "name": "DATA_DIRECTORY",
             "value": "/tmp/data"

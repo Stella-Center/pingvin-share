@@ -33,3 +33,7 @@ variable "url" {
 variable "lb_listener_arn" {
     type = string
 }
+
+variable "mixpanel_token" {
+    type = string
+}

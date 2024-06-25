@@ -5,7 +5,7 @@ data "template_file" "pingvin" {
     awslogs_group           = module.label.id
     region                  = var.region
     ecr_image_uri           = module.pingvin.repository_url
-    mixpanel_token_arn      = aws_secretsmanager_secret.mixpanel_token.arn
+    mixpanel_token          = var.mixpanel_token
   }
 }
 
