@@ -141,14 +141,9 @@ const Upload = ({
 
   const showCreateUploadModalCallback = (files: FileUpload[]) => {
     setFiles(files);
-
-    try {
-      mixpanel.track("Button Clicked", {
-        buttonName: "share.upload.files",
-      });
-    } catch (err) {
-      console.error(err);
-    }
+    mixpanel.track("Button Clicked", {
+      buttonName: "share.upload.files",
+    });
 
     showCreateUploadModal(
       modals,

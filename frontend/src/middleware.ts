@@ -1,6 +1,7 @@
 import jwtDecode from "jwt-decode";
 import { NextRequest, NextResponse } from "next/server";
 import configService from "./services/config.service";
+import mixpanel from "mixpanel-browser";
 
 // This middleware redirects based on different conditions:
 // - Authentication state
@@ -10,6 +11,8 @@ import configService from "./services/config.service";
 export const config = {
   matcher: "/((?!api|static|.*\\..*|_next).*)",
 };
+
+mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_KEY || "", {track_pageview: true});
 
 export async function middleware(request: NextRequest) {
   const routes = {
