@@ -6,7 +6,6 @@ RUN npm ci
 
 # Stage 2: Build frontend
 FROM node:20-alpine AS frontend-builder
-ARG NEXT_PUBLIC_MIXPANEL_KEY
 ENV NEXT_PUBLIC_MIXPANEL_KEY=${NEXT_PUBLIC_MIXPANEL_KEY}
 WORKDIR /opt/app
 COPY ./frontend .

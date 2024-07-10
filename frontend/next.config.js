@@ -17,6 +17,7 @@ module.exports = withPWA({
   output: "standalone",
   env: {
     VERSION: version,
+    NEXT_PUBLIC_MIXPANEL_KEY: process.env.NEXT_PUBLIC_MIXPANEL_KEY,
   },
   serverRuntimeConfig: {
     apiURL: process.env.API_URL ?? "http://localhost:8080",
